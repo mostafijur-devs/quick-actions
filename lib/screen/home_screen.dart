@@ -66,9 +66,25 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(title: Text('Home Page'), centerTitle: true),
       body: Center(
-        child: Text(
-          'This is homeo page',
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'This is homeo page',
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => FristScreen(),));
+                },
+                child: Text('Go To First Screen')),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SecendScreen(),));
+                },
+                child: Text('Go To Second Screen')),
+
+          ],
         ),
       ),
     );
