@@ -11,21 +11,30 @@ class SecendScreen extends StatefulWidget {
 }
 
 class _SecendScreenState extends State<SecendScreen> {
-  GlobalKey _bottomHomeKey = GlobalKey();
-  GlobalKey _bottomSearchKey = GlobalKey();
-  GlobalKey _bottomMoreKey = GlobalKey();
+  final GlobalKey _bottomHomeKey = GlobalKey();
+  final GlobalKey _bottomSearchKey = GlobalKey();
+  final GlobalKey _bottomMoreKey = GlobalKey();
 
   List<TargetFocus> targets = [];
   TutorialCoachMark? tutorialCoachMark;
 
   int _currentIndex = 0;
   Timer? _timer;
+  bool isLogin = false;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _targetShow();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+
+      if (isLogin) {
+        _targetShow();
+      }
+      setState(() {
+        isLogin = true;
+      });
+    },);
   }
 
   @override
@@ -47,10 +56,13 @@ class _SecendScreenState extends State<SecendScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _startTargets();
-          setState(() {
-            _currentIndex = 0;
-          });
+          print(isLogin);
+          if (isLogin) {
+            _targetShow();
+            setState(() {
+              _currentIndex = 0;
+            });
+          }
         },
         key: _bottomMoreKey,
         child: Icon(Icons.add),
@@ -114,7 +126,7 @@ class _SecendScreenState extends State<SecendScreen> {
         alignSkip: Alignment.topRight,
         shape: ShapeLightFocus.RRect,
         radius: 10,
-        targetPosition: TargetPosition(Size.square(10),  Offset.zero),
+        targetPosition: TargetPosition(Size.square(10), Offset.zero),
         contents: [
           TargetContent(
             padding: EdgeInsets.zero,
@@ -183,7 +195,7 @@ class _SecendScreenState extends State<SecendScreen> {
         alignSkip: Alignment.topRight,
         shape: ShapeLightFocus.Circle,
         color: Colors.red.withOpacity(0.22),
-       paddingFocus:0,
+        paddingFocus: 0,
         radius: 10,
         // targetPosition: TargetPosition(Size.square(10),  Offset.zero),
         contents: [
@@ -217,3 +229,4 @@ class _SecendScreenState extends State<SecendScreen> {
     return targets;
   }
 }
+
